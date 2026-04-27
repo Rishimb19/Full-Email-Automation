@@ -1,12 +1,14 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
+const nextConfig = {
   reactStrictMode: true,
-  async rewrites() {
-    return [
-      {
-        source: "/api/:path*",
-        destination: "http://localhost:4000/api/:path*",
-      },
-    ];
+  transpilePackages: [],
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      "@": require("path").resolve(__dirname, "src"),
+    };
+    return config;
   },
 };
+
+module.exports = nextConfig;
